@@ -1,0 +1,74 @@
+{%extends 'base_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/MainPage.css' %}">
+{% endblock %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block header %}
+{% include 'GGsApp/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="main__conainer _container">
+    <div class="main__header">
+        <div class="main__search">
+            <form method="get" action="">
+                {% if title_contains_query %}
+                <input type="search" autocomplete="off" class="search" value="{{title_contains_query}}" name="title_contains" placeholder="Поиск">
+                {% else %}
+                <input type="search" autocomplete="off" class="search" name="title_contains" placeholder="Поиск">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    <div class="main__body">
+        <div class="main__row">
+            {% for product in products_data %}
+            <div class="main__column">
+                <div class="main__item item">
+                    <div class="item__image">
+                        {% if product.image %}
+                        <img src="{{product.image.url}}" alt="game_image">
+                        {% else %}
+                        <img src="" alt="NoneImage">
+                        {%endif%}
+                    </div>
+                    <div class="item__border-text">
+                        <div class="item__title">
+                            <a class="title__link" href="{{product.get_absolute_url}}">{{product.title|upper }}</a>
+                        </div>
+                        <div class="item__body">
+                            <div class="item__marketplace">
+                                <a href="{{product.get_absolute_url}}" class="marketpalce__link">Площадка:
+                                    {{product.marketplace}}</a>
+                            </div>
+                            <div class="item__type">
+                                <a href="{{product.get_absolute_url}}" class="type__link">Тип:
+                                    {{product.product_type}}</a>
+                            </div>
+                            <div class="item__price">
+                                <a href="{{product.get_absolute_url}}" class="price__link">Цена: {{product.price}}
+                                    руб.</a>
+                            </div>
+                            <div class="item__description">
+                                <a href="{{product.get_absolute_url}}" class="description__link">Описание:
+                                    {{product.description|truncatechars:40}}</a>
+                            </div>
+
+                        </div>
+                        <div class="item__button">
+                            <a href="{{product.get_absolute_url}}" class="button__open">
+                                Открыть
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+{% endblock %}

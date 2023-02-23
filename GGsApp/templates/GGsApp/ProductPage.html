@@ -1,0 +1,42 @@
+{%extends 'base_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/ProductPage.css' %}">
+{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="main__conainer _container">
+    <div class="main__body">
+        <div class="main__title">
+            {{product.title|upper}}
+        </div>
+        <div class="main__info">
+            <div class="info__data">
+                <div class="product__image">
+                    <img src="{{product.image.url}}" alt="game_image">
+                </div>
+                <div class="product__price">
+                    {{product.price}} руб.
+                </div>
+                <div class="product__buy">
+                    <a href="" class="button__buy">Купить</a>
+                </div>
+            </div>
+            <div class="info__description">
+                {% autoescape on %}
+                {{product.description|linebreaks}}
+                {% endautoescape %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block header %}
+{% include 'GGsApp/header.html' %}
+{% endblock %}
